@@ -1,0 +1,71 @@
+list-after: $:/core/ui/ViewTemplate/tags
+tags: $:/tags/ViewTemplate
+title: $:/plugins/inmysocks/Photo Gallery/galleryTemplateHeader
+
+<$list
+    filter='[is[current]]+[type[image/jpeg]][type[image/gif]][type[image/x-icon]][type[image/png]][type[image/svg+xml]]+[nsort[order]]'
+    variable=CurrentImage
+>
+
+    <div
+        style='width:100%'
+    >
+        <$list
+            filter='[type[image/jpeg]][type[image/gif]][type[image/x-icon]][type[image/png]][type[image/svg+xml]]+[nsort[order]]+[before<CurrentImage>]'
+        >
+            <div
+                style='width:70%;z-index:99;position:absolute'
+            >
+                <$button
+                    class='tc-btn-invisible'
+                >
+                    {{$:/core/images/chevron-left}}
+                    <$action-navigate
+                        $to=<<currentTiddler>>
+                    />
+                    <$action-sendmessage
+                        $message='tm-close-tiddler'
+                        $param=<<CurrentImage>>
+                    />
+                </$button>
+            </div>
+        </$list>
+        <$list
+            filter='[type[image/jpeg]][type[image/gif]][type[image/x-icon]][type[image/png]][type[image/svg+xml]]+[nsort[order]]+[after<CurrentImage>]'
+        >
+            <div
+                style='text-align:right;position:absolute;width:80%;z-index:98'
+            >
+                <$button
+                    class='tc-btn-invisible'
+                >
+                    {{$:/core/images/chevron-right}}
+                    <$action-navigate
+                        $to=<<currentTiddler>>
+                    />
+                    <$action-sendmessage
+                        $message='tm-close-tiddler'
+                        $param=<<CurrentImage>>
+                    />
+                </$button>
+            </div>
+        </$list>
+        <div
+            style='text-align:center;position:absolute;z-index:1;width:80%'
+        >
+            Navigate Images
+            <hr>
+        </div>
+    </div>
+    <br>
+
+    <div>
+        <p>
+            <$transclude
+                field='caption'
+                mode=block
+            />
+        </p>
+        <br>
+    </div>
+</$list>

@@ -1,0 +1,310 @@
+tags:
+title: $:/plugins/inmysocks/Photo Gallery/Edit Photo Gallery
+
+\define SortSuffix()
++[nsort[order]]
+\end
+
+Select gallery:
+<$select
+	tiddler='$:/settings/Photo Gallery'
+	field='selected_gallery'
+>
+	<option
+		value=''
+	>
+		--
+	</option>
+	<$list
+		filter='[[$:/data/Gallery List]indexes[]]'
+	>
+		<option
+			value=<<currentTiddler>>
+		>
+			<$view
+				field='title'
+			/>
+		</option>
+	</$list>
+</$select>
+<$reveal
+	type='nomatch'
+	state='$:/state/Edit Photo Gallery!!new_gallery'
+	text='show'
+>
+	<$button>
+		New Gallery
+		<$action-setfield
+			$tiddler='$:/state/Edit Photo Gallery'
+			new_gallery=show
+		/>
+	</$button>
+</$reveal>
+<$reveal
+	type='nomatch'
+	state='$:/state/Edit Photo Gallery!!new_photo'
+	text='show'
+>
+	<$button>
+		Add External Photo
+		<$action-setfield
+			$tiddler='$:/state/Edit Photo Gallery'
+			new_photo=show
+		/>
+	</$button>
+</$reveal>
+<$reveal
+	type='match'
+	state='$:/state/Edit Photo Gallery!!new_photo'
+	text='show'
+>
+	<br>
+	Photo Name:
+	<$edit-text
+		tiddler='$:/temp/Edit Photo Gallery'
+		field='new_photo_name'
+		class='tc-edit-texteditor'
+	/>
+	Photo Path:
+	<$edit-text
+		tiddler='$:/temp/Edit Photo Gallery'
+		field='new_photo_path'
+		class='tc-edit-texteditor'
+	/>
+	<$list
+		filter='[{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[jpg]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[JPG]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[jpeg]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[JPEG]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[png]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[PNG]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[gif]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[GIF]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[svg]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[SVG]]'
+		variable=dummy
+		emptyMessage="""<$list filter='[[$:/temp/Edit Photo Gallery]has[new_photo_path]]'>Are you sure that is the correct path? I can't detect the type.<br></$list>"""
+	>
+	 <br>
+	</$list>
+	<$list filter='[[$:/temp/Edit Photo Gallery]has[new_photo_path]]'>
+		Small Preview:
+		<br>
+		<$image
+			height=100px
+			source={{$:/temp/Edit Photo Gallery!!new_photo_path}}
+		/>
+	</$list>
+	<br>
+	<$button>
+		Add Photo
+		<$list
+			filter='[[$:/temp/Edit Photo Gallery]has[new_photo_name]has[new_photo_path]]'
+		>
+			<$action-setfield
+				$tiddler={{$:/temp/Edit Photo Gallery!!new_photo_name}}
+				_canonical_uri={{$:/temp/Edit Photo Gallery!!new_photo_path}}
+			/>
+			<$action-setfield
+				$tiddler='$:/temp/Edit Photo Gallery'
+				new_photo_name=''
+				new_photo_path=''
+			/>
+		</$list>
+		<$list
+			filter='[{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[jpg]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[JPG]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[jpeg]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[JPEG]]'
+			variable=dummy
+		>
+			<$action-setfield
+				$tiddler={{$:/temp/Edit Photo Gallery!!new_photo_name}}
+				type='image/jpeg'
+			/>
+		</$list>
+		<$list
+			filter='[{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[png]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[PNG]]'
+			variable=dummy
+		>
+			<$action-setfield
+				$tiddler={{$:/temp/Edit Photo Gallery!!new_photo_name}}
+				type='image/png'
+			/>
+		</$list>
+		<$list
+			filter='[{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[gif]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[GIF]]'
+			variable=dummy
+		>
+			<$action-setfield
+				$tiddler={{$:/temp/Edit Photo Gallery!!new_photo_name}}
+				type='image/gif'
+			/>
+		</$list>
+		<$list
+			filter='[{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[svg]][{$:/temp/Edit Photo Gallery!!new_photo_path}suffix[SVG]]'
+			variable=dummy
+		>
+			<$action-setfield
+				$tiddler={{$:/temp/Edit Photo Gallery!!new_photo_name}}
+				type='image/svg+xml'
+			/>
+		</$list>
+	</$button>
+	<$button>
+		Done
+		<$action-setfield
+			$tiddler='$:/state/Edit Photo Gallery'
+			new_photo=hide
+		/>
+	</$button>
+</$reveal>
+<$reveal
+	type='match'
+	state='$:/state/Edit Photo Gallery!!new_gallery'
+	text='show'
+>
+	<br>
+	New Gallery Name:
+	<$edit-text
+		tiddler='$:/temp/Edit Photo Gallery'
+		field='new_gallery_name'
+		class='tc-edit-texteditor'
+	/>
+	Gallery Filter:
+	<$edit-text
+		tiddler='$:/temp/Edit Photo Gallery'
+		field='new_gallery_filter'
+		class='tc-edit-texteditor'
+	/>
+	<$button>
+		Create Gallery
+		<$action-setfield
+			$tiddler='$:/data/Gallery List'
+			$index={{$:/temp/Edit Photo Gallery!!new_gallery_name}}
+			$value={{$:/temp/Edit Photo Gallery!!new_gallery_filter}}
+		/>
+		<$action-setfield
+			$tiddler='$:/state/Edit Photo Gallery'
+			new_gallery=hide
+		/>
+		<$action-setfield
+			$tiddler='$:/temp/Edit Photo Gallery'
+			new_gallery_name=''
+			new_gallery_filter=''
+		/>
+	</$button>
+	<$button>
+		Cancel
+		<$action-setfield
+			$tiddler='$:/state/Edit Photo Gallery'
+			new_gallery=hide
+		/>
+		<$action-setfield
+			$tiddler='$:/temp/Edit Photo Gallery'
+			new_gallery_name=''
+			new_gallery_filter=''
+		/>
+	</$button>
+</$reveal>
+
+<$reveal
+	type='nomatch'
+	state='$:/settings/Photo Gallery!!selected_gallery'
+	text=''
+>
+	To display this gallery in a tiddler copy this into the text field of the tiddler:
+	<pre>
+	<$text text='<<PhotoGallery'/> {{$:/settings/Photo Gallery!!selected_gallery}}<$text text='>>'/>
+	</pre>
+	<br>
+	Gallery Filter:
+	<$reveal
+		type='match'
+		state='$:/state/Edit Photo Gallery!!edit_filter'
+		text=true
+	>
+		<$edit-text
+			tiddler='$:/data/Gallery List'
+			index={{$:/settings/Photo Gallery!!selected_gallery}}
+			class='tc-edit-texteditor'
+		/>
+		<$button>
+			Done
+			<$action-setfield
+				$tiddler='$:/state/Edit Photo Gallery'
+				edit_filter='false'
+			/>
+		</$button>
+	</$reveal>
+</$reveal>
+<$list
+	filter='[[$:/data/Gallery List]getindex{$:/settings/Photo Gallery!!selected_gallery}addsuffix<SortSuffix>]'
+	variable=GalleryFilter
+	emptyMessage='Select a gallery to edit'
+>
+	<$reveal
+		type='nomatch'
+		state='$:/state/Edit Photo Gallery!!edit_filter'
+		text=true
+	>
+		<$view
+			tiddler=<<GalleryFilter>>
+			field='title'
+		/>
+		<$button>
+			Edit
+			<$action-setfield
+				$tiddler='$:/state/Edit Photo Gallery'
+				edit_filter='true'
+			/>
+		</$button>
+	</$reveal>
+	<br>
+	<$list
+		filter='[{$:/settings/Photo Gallery!!selected_gallery}addprefix[$:/settings/Photo Gallery/]]'
+		variable=SettingsTiddler
+	>
+		Image height in gallery:
+		<$edit-text
+			tiddler=<<SettingsTiddler>>
+			field='photo_height'
+		/>
+	</$list>
+
+	<table
+		style='width:100%'
+	>
+		<tr>
+			<th
+				style='width:25%'
+			>
+				Image
+			</th>
+			<th>
+				Caption
+			</th>
+			<th>
+				Order
+			</th>
+		</tr>
+		<$list
+			filter=<<GalleryFilter>>
+		>
+			<tr>
+				<th>
+					<$image
+						source=<<currentTiddler>>
+						height=100
+					/>
+					<br>
+					<$link>
+						<$view
+							field='title'
+						/>
+					</$link>
+				</th>
+				<td>
+					<$edit-text
+						field='caption'
+						class='tc-edit-texteditor'
+					/>
+				</td>
+				<td>
+					<$edit-text
+						field='order'
+						size=3
+					/>
+				</td>
+			</tr>
+		</$list>
+	</table>
+</$list>
