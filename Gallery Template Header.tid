@@ -1,6 +1,6 @@
 list-after: $:/core/ui/ViewTemplate/tags
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/Photo Gallery/galleryTemplateHeader
+title: $:/plugins/OokTech/Photo Gallery/galleryTemplateHeader
 
 <$list
     filter='[is[current]]+[type[image/jpeg]][type[image/gif]][type[image/x-icon]][type[image/png]][type[image/svg+xml]]+[nsort[order]]'

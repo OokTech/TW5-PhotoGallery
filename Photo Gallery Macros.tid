@@ -1,5 +1,5 @@
 tags: $:/tags/Macro
-title: $:/plugins/inmysocks/Photo Gallery/Macros
+title: $:/plugins/OokTech/Photo Gallery/Macros
 
 \define PhotoGallery(GalleryName, sort:"""+[nsort[order]]""")
 <$list
@@ -18,7 +18,7 @@ title: $:/plugins/inmysocks/Photo Gallery/Macros
 			<$list
 				filter="""[[$:/data/Gallery List]getindex[$GalleryName$]addsuffix<SortOption>]"""
 				variable=GalleryFilter
-				emptyMessage="""There is no gallery with the name __$GalleryName$__. If you have already created the gallery check your spelling, otherwise create a gallery with this name using the [[photo gallery editor|$:/plugins/inmysocks/Photo Gallery/Edit Photo Gallery]]."""
+				emptyMessage="""There is no gallery with the name __$GalleryName$__. If you have already created the gallery check your spelling, otherwise create a gallery with this name using the [[photo gallery editor|$:/plugins/OokTech/Photo Gallery/Edit Photo Gallery]]."""
 			>
 				<$tiddler tiddler=<<SettingsTiddler>>>
 					<<PhotoGallerySwitchViewButtons>>
@@ -33,7 +33,7 @@ title: $:/plugins/inmysocks/Photo Gallery/Macros
 							state="""$:/settings/Photo Gallery/$GalleryName$!!photo_height"""
 							text=''
 						>
-							For better viewing, set the default photo height in the [[photo gallery editor|$:/plugins/inmysocks/Photo Gallery/Edit Photo Gallery]].
+							For better viewing, set the default photo height in the [[photo gallery editor|$:/plugins/OokTech/Photo Gallery/Edit Photo Gallery]].
 						</$reveal>
 
 						<$list
@@ -179,7 +179,7 @@ title: $:/plugins/inmysocks/Photo Gallery/Macros
 <$transclude/>
 \end
 
-This tiddler contains the `PhotoGallery` macro. To use it first going to [[$:/plugins/inmysocks/Photo Gallery/Edit Photo Gallery]] and click on `New Gallery`. Give the gallery a name and enter the filter you want to use the click `Create Gallery`. The gallery will contain any images returned by this filter.
+This tiddler contains the `PhotoGallery` macro. To use it first going to [[$:/plugins/OokTech/Photo Gallery/Edit Photo Gallery]] and click on `New Gallery`. Give the gallery a name and enter the filter you want to use the click `Create Gallery`. The gallery will contain any images returned by this filter.
 
 To display the gallery in a tiddler use
 
@@ -187,7 +187,7 @@ To display the gallery in a tiddler use
 <<PhotoGallery "Gallery Name">>
 ```
 
-Where `Gallery Name` is whatever you named your gallery when you created it. In the tiddler [[$:/plugins/inmysocks/Photo Gallery/Edit Photo Gallery]] you can set the photo height when viewing the gallery as a list, this can be different for each gallery you create.
+Where `Gallery Name` is whatever you named your gallery when you created it. In the tiddler [[$:/plugins/OokTech/Photo Gallery/Edit Photo Gallery]] you can set the photo height when viewing the gallery as a list, this can be different for each gallery you create.
 
 Currently when you set the order it is matched to the photo and affects all galleries that have that photo. I am working on allowing per-gallery ordering.
 

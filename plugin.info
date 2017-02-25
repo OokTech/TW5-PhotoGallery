@@ -1,9 +1,9 @@
 {
-	"title": "$:/plugins/inmysocks/PhotoGallery",
+	"title": "$:/plugins/OokTech/PhotoGallery",
 	"description": "A plugin that adds a simple photo gallery to tiddlywiki",
 	"author": "inmysocks",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"core-version": ">=5.1.8",
-	"source": "",
+	"source": "https://github.com/OokTech/TW5-PhotoGallery",
 	"plugin-type": "plugin"
 }
