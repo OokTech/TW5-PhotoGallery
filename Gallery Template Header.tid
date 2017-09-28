@@ -3,7 +3,7 @@ tags: $:/tags/ViewTemplate
 title: $:/plugins/OokTech/Photo Gallery/galleryTemplateHeader
 
 <$list
-    filter='[is[current]]+[type[image/jpeg]][type[image/gif]][type[image/x-icon]][type[image/png]][type[image/svg+xml]]+[nsort[order]]'
+    filter='[is[current]type[image/jpeg]][is[current]type[image/gif]][is[current]type[image/x-icon]][is[current]type[image/png]][is[current]type[image/svg+xml]]+[nsort[order]]'
     variable=CurrentImage
 >
 
